@@ -26,6 +26,26 @@ const PROJECTS: Project[] = [
   },
   {
     id: 2,
+    title: "Social Media Dashboard",
+    description:
+      "A comprehensive dashboard for managing multiple social media accounts. Built with React and Express.js, it aggregates analytics, schedules posts, and monitors engagement metrics across platforms. Demonstrates proficiency in API integration and data visualization.",
+    category: "know",
+    tags: ["React", "Express.js", "PostgreSQL", "Chart.js", "JWT"],
+    link: "#",
+    demoLink: "#",
+  },
+  {
+    id: 3,
+    title: "Real-Time Chat Application",
+    description:
+      "A full-featured chat application with real-time messaging capabilities. Developed with Socket.io, React, and Node.js featuring user authentication, group chats, and file sharing. This project taught me valuable lessons about WebSocket programming and state management at scale.",
+    category: "know",
+    tags: ["React", "Socket.io", "Node.js", "Redis", "JWT Auth"],
+    link: "#",
+    demoLink: "#",
+  },
+  {
+    id: 4,
     title: "AI-Powered Task Manager",
     description:
       "A modern task management application with AI-powered suggestions. Built with Next.js and TypeScript, featuring real-time updates and smart task categorization. I learned valuable lessons about performance optimization and user experience design through this project.",
@@ -35,7 +55,27 @@ const PROJECTS: Project[] = [
     demoLink: "#",
   },
   {
-    id: 3,
+    id: 5,
+    title: "Weather Prediction System",
+    description:
+      "A weather forecasting application using machine learning models. Built with React for frontend and Python with scikit-learn for backend algorithms. Through this project, I learned how to preprocess data, train prediction models, and integrate ML services with web applications.",
+    category: "learned",
+    tags: ["React", "Python", "Scikit-learn", "REST API", "D3.js"],
+    link: "#",
+    demoLink: "#",
+  },
+  {
+    id: 6,
+    title: "Blockchain Supply Chain Tracker",
+    description:
+      "A supply chain transparency solution using blockchain technology. This project represents my journey into learning about distributed systems, smart contracts, and decentralized applications while leveraging my existing web development skills.",
+    category: "learned",
+    tags: ["Solidity", "Web3.js", "React", "Ethereum", "Hardhat"],
+    link: "#",
+    demoLink: "#",
+  },
+  {
+    id: 7,
     title: "Machine Learning Dashboard",
     description:
       "An interactive data visualization dashboard for ML model analysis. Currently exploring deep learning concepts and data science tools. This project represents my ambition to combine frontend expertise with AI/ML capabilities.",
@@ -44,11 +84,33 @@ const PROJECTS: Project[] = [
     link: "#",
     demoLink: "#",
   },
+  {
+    id: 8,
+    title: "Autonomous Mobile Robotics Platform",
+    description:
+      "A platform for controlling and monitoring autonomous robots with real-time computer vision and sensor data processing. This ambitious project combines IoT, machine learning, and robotics - areas I'm passionate about exploring and mastering.",
+    category: "aspiring",
+    tags: ["ROS", "Python", "OpenCV", "TensorFlow", "WebSockets"],
+    link: "#",
+    demoLink: "#",
+  },
+  {
+    id: 9,
+    title: "Quantum Computing Applications",
+    description:
+      "An exploration of quantum computing applications for optimization problems. I'm aspiring to build bridges between classical computing and quantum algorithms, creating practical solutions that leverage quantum advantages while remaining accessible to developers.",
+    category: "aspiring",
+    tags: ["Qiskit", "Python", "Quantum Algorithms", "React", "IBM Quantum"],
+    link: "#",
+    demoLink: "#",
+  },
 ];
 
 export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState<"all" | "know" | "learned" | "aspiring">("all");
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<"view" | "demo" | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -63,6 +125,16 @@ export default function ProjectsSection() {
     aspiring: "What I'm Aspiring To",
   };
 
+  const handleViewClick = (projectId: number, mode: "view" | "demo") => {
+    setSelectedProject(projectId);
+    setViewMode(mode);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+    setViewMode(null);
+  };
+
   return (
     <section id="projects" className="py-20 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -71,7 +143,7 @@ export default function ProjectsSection() {
           <p className="text-accent font-semibold mb-2">Portfolio</p>
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">The Big Three</h2>
           <p className="text-lg text-secondary max-w-2xl mx-auto">
-            Three projects that showcase my growth as a developer
+            Nine projects that showcase my growth as a developer
           </p>
         </div>
 
@@ -161,19 +233,19 @@ export default function ProjectsSection() {
 
                 {/* Links */}
                 <div className="flex gap-3">
-                  <a
-                    href={project.link}
-                    className="flex-1 px-4 py-2 bg-accent text-white rounded-lg text-center font-medium hover:bg-blue-600 transition-colors"
+                  <button
+                    onClick={() => handleViewClick(project.id, "view")}
+                    className="flex-1 px-4 py-2 bg-accent text-white rounded-lg text-center font-medium hover:bg-blue-600 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
                   >
                     View
-                  </a>
+                  </button>
                   {project.demoLink && (
-                    <a
-                      href={project.demoLink}
-                      className="flex-1 px-4 py-2 border border-accent text-accent rounded-lg text-center font-medium hover:bg-accent/5 transition-colors"
+                    <button
+                      onClick={() => handleViewClick(project.id, "demo")}
+                      className="flex-1 px-4 py-2 border-2 border-accent text-accent rounded-lg text-center font-medium hover:bg-accent/10 hover:shadow-lg transform hover:scale-105 transition-all duration-300 active:scale-95"
                     >
                       Demo
-                    </a>
+                    </button>
                   )}
                 </div>
               </div>
@@ -181,6 +253,92 @@ export default function ProjectsSection() {
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {isMounted && selectedProject && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+          onClick={closeModal}
+        >
+          <div 
+            className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-96 overflow-y-auto animate-slideInUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-gradient-to-r from-accent/10 to-accent/5 border-b border-gray-200 p-6 flex justify-between items-center">
+              <div>
+                <h3 className="text-2xl font-bold text-primary">
+                  {PROJECTS.find((p) => p.id === selectedProject)?.title}
+                </h3>
+                <p className="text-secondary text-sm mt-1">
+                  {viewMode === "view" ? "Project Overview" : "Live Demo"}
+                </p>
+              </div>
+              <button
+                onClick={closeModal}
+                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              >
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {viewMode === "view" ? (
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-bold text-primary mb-2">Project Description</h4>
+                    <p className="text-secondary leading-relaxed">
+                      {PROJECTS.find((p) => p.id === selectedProject)?.description}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-primary mb-3">Technologies Used</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {PROJECTS.find((p) => p.id === selectedProject)?.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium hover:bg-accent/20 transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-gray-200">
+                    <p className="text-sm text-secondary mb-4">Ready to learn more?</p>
+                    <button className="w-full px-4 py-2 bg-accent text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                      View Full Project →
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-gray-100 rounded-lg p-8 flex items-center justify-center min-h-40">
+                    <div className="text-center">
+                      <svg className="w-16 h-16 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p className="text-secondary font-medium">Interactive Demo</p>
+                      <p className="text-sm text-gray-500 mt-1">Click the button below to experience the live demo</p>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-gray-200">
+                    <button className="w-full px-4 py-2 bg-gradient-to-r from-accent to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-105">
+                      Launch Live Demo →
+                    </button>
+                    <p className="text-xs text-secondary text-center mt-2">Demo opens in a new tab</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
+

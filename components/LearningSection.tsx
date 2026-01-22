@@ -65,12 +65,41 @@ const LEARNING_ITEMS: LearningItem[] = [
 export default function LearningSection() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedStat, setSelectedStat] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const categories = Array.from(new Set(LEARNING_ITEMS.map((item) => item.category)));
+  const avgProgress = Math.round(LEARNING_ITEMS.reduce((a, b) => a + b.progress, 0) / LEARNING_ITEMS.length);
+
+  const stats = [
+    { 
+      label: "Topics Learning", 
+      value: LEARNING_ITEMS.length,
+      id: "topics",
+      detail: `Learning ${LEARNING_ITEMS.length} different topics to expand my skills`
+    },
+    { 
+      label: "Avg Progress", 
+      value: `${avgProgress}%`,
+      id: "progress",
+      detail: `Average progress across all learning topics is ${avgProgress}%`
+    },
+    { 
+      label: "Categories", 
+      value: categories.length,
+      id: "categories",
+      detail: `Covering ${categories.length} categories: ${categories.join(", ")}`
+    },
+    { 
+      label: "Total Hours", 
+      value: "150+",
+      id: "hours",
+      detail: "Over 150 hours invested in continuous learning and skill development"
+    },
+  ];
 
   return (
     <section id="learning" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
@@ -164,22 +193,37 @@ export default function LearningSection() {
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
-          {[
-            { label: "Topics Learning", value: LEARNING_ITEMS.length },
-            { label: "Avg Progress", value: `${Math.round(LEARNING_ITEMS.reduce((a, b) => a + b.progress, 0) / LEARNING_ITEMS.length)}%` },
-            { label: "Categories", value: categories.length },
-            { label: "Total Hours", value: "150+" },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg p-4 text-center border border-gray-200 hover:border-accent hover:shadow-md transition-all duration-300 animate-slideInUp"
+          {stats.map((stat, index) => (
+            <button
+              key={stat.id}
+              onClick={() => setSelectedStat(selectedStat === stat.id ? null : stat.id)}
+              className="bg-white rounded-lg p-4 text-center border-2 border-gray-200 hover:border-accent hover:shadow-lg transition-all duration-300 animate-slideInUp transform hover:scale-105 cursor-pointer relative overflow-hidden group"
               style={{
                 animationDelay: `${0.3 + index * 0.1}s`,
               }}
             >
-              <p className="text-sm text-secondary mb-1">{stat.label}</p>
-              <p className="text-2xl font-bold text-accent">{stat.value}</p>
-            </div>
+              {/* Animated background on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <div className="relative z-10">
+                <p className="text-sm text-secondary mb-1 font-medium">{stat.label}</p>
+                <p className={`text-2xl md:text-3xl font-bold transition-all duration-300 ${
+                  selectedStat === stat.id ? "text-accent scale-110" : "text-accent"
+                }`}>
+                  {stat.value}
+                </p>
+                
+                {/* Expanded detail */}
+                {selectedStat === stat.id && (
+                  <div className="mt-3 pt-3 border-t border-gray-200 animate-slideInDown">
+                    <p className="text-sm text-secondary leading-relaxed">{stat.detail}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Visual indicator for interactive elements */}
+              <div className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
           ))}
         </div>
       </div>
