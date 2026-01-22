@@ -66,6 +66,7 @@ export default function LearningSection() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
+  const [showTopicsModal, setShowTopicsModal] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -100,6 +101,16 @@ export default function LearningSection() {
       detail: "Over 150 hours invested in continuous learning and skill development"
     },
   ];
+
+  const handleTopicsClick = () => {
+    if (selectedStat === "topics" && showTopicsModal) {
+      setShowTopicsModal(false);
+      setSelectedStat(null);
+    } else {
+      setSelectedStat("topics");
+      setShowTopicsModal(true);
+    }
+  };
 
   return (
     <section id="learning" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
@@ -196,8 +207,10 @@ export default function LearningSection() {
           {stats.map((stat, index) => (
             <button
               key={stat.id}
-              onClick={() => setSelectedStat(selectedStat === stat.id ? null : stat.id)}
-              className="bg-white rounded-lg p-4 text-center border-2 border-gray-200 hover:border-accent hover:shadow-lg transition-all duration-300 animate-slideInUp transform hover:scale-105 cursor-pointer relative overflow-hidden group"
+              onClick={() => stat.id === "topics" ? handleTopicsClick() : setSelectedStat(selectedStat === stat.id ? null : stat.id)}
+              className={`bg-white rounded-lg p-4 text-center border-2 transition-all duration-300 animate-slideInUp transform hover:scale-105 cursor-pointer relative overflow-hidden group ${
+                stat.id === "topics" && showTopicsModal ? "border-accent shadow-lg" : "border-gray-200 hover:border-accent hover:shadow-lg"
+              }`}
               style={{
                 animationDelay: `${0.3 + index * 0.1}s`,
               }}
@@ -214,7 +227,7 @@ export default function LearningSection() {
                 </p>
                 
                 {/* Expanded detail */}
-                {selectedStat === stat.id && (
+                {selectedStat === stat.id && stat.id !== "topics" && (
                   <div className="mt-3 pt-3 border-t border-gray-200 animate-slideInDown">
                     <p className="text-sm text-secondary leading-relaxed">{stat.detail}</p>
                   </div>
@@ -226,6 +239,84 @@ export default function LearningSection() {
             </button>
           ))}
         </div>
+
+        {/* Topics Modal */}
+        {isMounted && showTopicsModal && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+            onClick={() => setShowTopicsModal(false)}
+          >
+            <div 
+              className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[80vh] overflow-y-auto animate-slideInUp"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="sticky top-0 bg-gradient-to-r from-accent/10 to-accent/5 border-b border-gray-200 p-6 flex justify-between items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-primary">Topics I'm Learning</h3>
+                  <p className="text-secondary text-sm mt-1">{LEARNING_ITEMS.length} learning topics in total</p>
+                </div>
+                <button
+                  onClick={() => setShowTopicsModal(false)}
+                  className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                >
+                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6">
+                <div className="space-y-3">
+                  {LEARNING_ITEMS.map((item) => (
+                    <div key={item.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-accent hover:shadow-md transition-all">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex-1">
+                          <h4 className="font-bold text-primary text-lg">{item.title}</h4>
+                          <p className="text-secondary text-sm mt-1">{item.description}</p>
+                        </div>
+                        <span className="px-3 py-1 text-xs font-semibold bg-accent/10 text-accent rounded-full whitespace-nowrap ml-4">
+                          {item.category}
+                        </span>
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div className="mt-3">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-xs font-semibold text-secondary">Progress</span>
+                          <span className="text-xs font-bold text-accent">{item.progress}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-accent to-blue-500 h-full rounded-full transition-all duration-500"
+                            style={{ width: `${item.progress}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Summary Footer */}
+                <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-accent">{LEARNING_ITEMS.length}</p>
+                    <p className="text-xs text-secondary mt-1">Topics Learning</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-accent">{avgProgress}%</p>
+                    <p className="text-xs text-secondary mt-1">Average Progress</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-accent">{categories.length}</p>
+                    <p className="text-xs text-secondary mt-1">Categories</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

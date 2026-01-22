@@ -23,26 +23,7 @@ const PROJECTS: Project[] = [
     tags: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
     link: "#",
     demoLink: "#",
-  },
-  {
-    id: 2,
-    title: "Social Media Dashboard",
-    description:
-      "A comprehensive dashboard for managing multiple social media accounts. Built with React and Express.js, it aggregates analytics, schedules posts, and monitors engagement metrics across platforms. Demonstrates proficiency in API integration and data visualization.",
-    category: "know",
-    tags: ["React", "Express.js", "PostgreSQL", "Chart.js", "JWT"],
-    link: "#",
-    demoLink: "#",
-  },
-  {
-    id: 3,
-    title: "Real-Time Chat Application",
-    description:
-      "A full-featured chat application with real-time messaging capabilities. Developed with Socket.io, React, and Node.js featuring user authentication, group chats, and file sharing. This project taught me valuable lessons about WebSocket programming and state management at scale.",
-    category: "know",
-    tags: ["React", "Socket.io", "Node.js", "Redis", "JWT Auth"],
-    link: "#",
-    demoLink: "#",
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop",
   },
   {
     id: 4,
@@ -53,26 +34,7 @@ const PROJECTS: Project[] = [
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API"],
     link: "#",
     demoLink: "#",
-  },
-  {
-    id: 5,
-    title: "Weather Prediction System",
-    description:
-      "A weather forecasting application using machine learning models. Built with React for frontend and Python with scikit-learn for backend algorithms. Through this project, I learned how to preprocess data, train prediction models, and integrate ML services with web applications.",
-    category: "learned",
-    tags: ["React", "Python", "Scikit-learn", "REST API", "D3.js"],
-    link: "#",
-    demoLink: "#",
-  },
-  {
-    id: 6,
-    title: "Blockchain Supply Chain Tracker",
-    description:
-      "A supply chain transparency solution using blockchain technology. This project represents my journey into learning about distributed systems, smart contracts, and decentralized applications while leveraging my existing web development skills.",
-    category: "learned",
-    tags: ["Solidity", "Web3.js", "React", "Ethereum", "Hardhat"],
-    link: "#",
-    demoLink: "#",
+    image: "https://images.unsplash.com/photo-1677442d019cecf8971360fc87f65dfa50d624ac9?w=500&h=300&fit=crop",
   },
   {
     id: 7,
@@ -83,26 +45,7 @@ const PROJECTS: Project[] = [
     tags: ["Python", "TensorFlow", "React", "D3.js", "FastAPI"],
     link: "#",
     demoLink: "#",
-  },
-  {
-    id: 8,
-    title: "Autonomous Mobile Robotics Platform",
-    description:
-      "A platform for controlling and monitoring autonomous robots with real-time computer vision and sensor data processing. This ambitious project combines IoT, machine learning, and robotics - areas I'm passionate about exploring and mastering.",
-    category: "aspiring",
-    tags: ["ROS", "Python", "OpenCV", "TensorFlow", "WebSockets"],
-    link: "#",
-    demoLink: "#",
-  },
-  {
-    id: 9,
-    title: "Quantum Computing Applications",
-    description:
-      "An exploration of quantum computing applications for optimization problems. I'm aspiring to build bridges between classical computing and quantum algorithms, creating practical solutions that leverage quantum advantages while remaining accessible to developers.",
-    category: "aspiring",
-    tags: ["Qiskit", "Python", "Quantum Algorithms", "React", "IBM Quantum"],
-    link: "#",
-    demoLink: "#",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop",
   },
 ];
 
@@ -189,9 +132,17 @@ export default function ProjectsSection() {
               {/* Project Header */}
               <div className="h-32 bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/10 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="text-4xl font-bold text-accent/30 group-hover:text-accent/50 transition-colors duration-300">
-                  {project.id}
-                </div>
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="text-4xl font-bold text-accent/30 group-hover:text-accent/50 transition-colors duration-300">
+                    {project.id}
+                  </div>
+                )}
               </div>
 
               {/* Content */}
