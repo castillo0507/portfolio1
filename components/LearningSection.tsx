@@ -120,7 +120,7 @@ export default function LearningSection() {
           <p className="text-accent font-semibold mb-2">Growth Mindset</p>
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Currently Learning</h2>
           <p className="text-lg text-secondary max-w-2xl mx-auto">
-            Continuous learning is at the core of my development journey. Here's what I'm exploring right now.
+            Continuous learning is at the core of my development journey. Here&#39;s what I&#39;m exploring right now.
           </p>
         </div>
 
@@ -253,7 +253,7 @@ export default function LearningSection() {
               {/* Modal Header */}
               <div className="sticky top-0 bg-gradient-to-r from-accent/10 to-accent/5 border-b border-gray-200 p-6 flex justify-between items-center">
                 <div>
-                  <h3 className="text-2xl font-bold text-primary">Topics I'm Learning</h3>
+                  <h3 className="text-2xl font-bold text-primary">Topics I&#39;m Learning</h3>
                   <p className="text-secondary text-sm mt-1">{LEARNING_ITEMS.length} learning topics in total</p>
                 </div>
                 <button

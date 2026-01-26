@@ -30,7 +30,7 @@ export default function Navbar() {
               title="Profile Picture"
             />
             <div className="profile-name">
-              <h2>Castillo's Portfolio</h2>
+              <h2>Castillo&#39;s Portfolio</h2>
               <p>IT Specialist, Full Stack Developer</p>
             </div>
           </div>

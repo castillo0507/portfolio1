@@ -39,9 +39,9 @@ export default function ContactSection() {
         {/* Section Header */}
         <div className="text-center mb-16 animate-slideInUp">
           <p className="text-accent font-semibold mb-2">Get In Touch</p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Let's Create Something Amazing</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Let&#39;s Create Something Amazing</h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            I'm always excited to discuss new projects and opportunities. Feel free to reach out!
+            I&#39;m always excited to discuss new projects and opportunities. Feel free to reach out!
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export default function ContactSection() {
 
             {submitted && (
               <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center animate-slideInDown">
-                ✓ Message sent successfully! I'll get back to you soon.
+                ✓ Message sent successfully! I&#39;ll get back to you soon.
               </div>
             )}
 

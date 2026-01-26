@@ -81,11 +81,11 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed text-justify">
-         I'm an IT Specialist and Full-Stack Developer passionate about turning complex problems into intuitive digital solutions. With a keen eye for detail and a drive for innovation, I build web applications that are not only visually stunning but also user-friendly and accessible.
+         I&#39;m an IT Specialist and Full-Stack Developer passionate about turning complex problems into intuitive digital solutions. With a keen eye for detail and a drive for innovation, I build web applications that are not only visually stunning but also user-friendly and accessible.
          <br/><br/>
-From front-end design that delights users to back-end systems that power seamless functionality, I specialize in creating experiences that bridge the gap between technology and people. Whether it’s optimizing performance, enhancing security, or implementing scalable solutions, I strive to deliver quality that makes an impact.
+      From front-end design that delights users to back-end systems that power seamless functionality, I specialize in creating experiences that bridge the gap between technology and people. Whether it&#39;s optimizing performance, enhancing security, or implementing scalable solutions, I strive to deliver quality that makes an impact.
          <br/><br/>
-Let’s build something amazing together.
+      Let&#39;s build something amazing together.
         </p>
 
         {/* CTA Buttons */}
