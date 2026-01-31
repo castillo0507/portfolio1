@@ -87,7 +87,7 @@ export default function ProjectsSection() {
           <p className="text-accent font-semibold mb-2">Portfolio</p>
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">The Big Three</h2>
           <p className="text-lg text-secondary max-w-2xl mx-auto">
-            Nine projects that showcase my growth as a developer
+            Three projects that showcase my growth as a developer
           </p>
         </div>
 
